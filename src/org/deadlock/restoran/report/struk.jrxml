@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Struk_transaksi" language="groovy" pageWidth="260" pageHeight="320" whenNoDataType="AllSectionsNoDetail" columnWidth="230" leftMargin="15" rightMargin="15" topMargin="15" bottomMargin="5" isIgnorePagination="true" uuid="5ba1b658-bc7c-463c-b7b5-e61f061fc1e3">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT transaksi.transaksi_id,
+transaksi.transaksi_waktu,
+kasir.kasir_id,
+UPPER(kasir.kasir_nama) as kasir_nama,
+transaksi.AN,
+UPPER(produk.produk_nama) as produk_nama, 
+detail_transaksi.jumlah,
+FORMAT(((produk.produk_harga-((produk.produk_diskon/100)*produk.produk_harga))*detail_transaksi.jumlah),0) as harga,
+FORMAT(transaksi.transaksi_bayar,0) as transaksi_bayar,
+FORMAT(transaksi.transaksi_cash,0) as transaksi_cash,
+FORMAT(transaksi.transaksi_kembali,0) as transaksi_kembali,
+DATE_FORMAT(transaksi.transaksi_waktu,'%d/%m/%Y %H:%i %p') as waktu FROM transaksi left join detail_transaksi on transaksi.transaksi_id = detail_transaksi.transaksi_id INNER join produk on produk.produk_id = detail_transaksi.produk_id inner join kasir on kasir.kasir_id = transaksi.kasir_id;]]>
+	</queryString>
+	<field name="transaksi_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="transaksi_waktu" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kasir_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kasir_nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="produk_nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jumlah" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="harga" class="java.lang.String"/>
+	<field name="transaksi_bayar" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="transaksi_cash" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="transaksi_kembali" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="waktu" class="java.lang.String"/>
+	<variable name="transaksi_id_1" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{transaksi_id}]]></variableExpression>
+	</variable>
+	<variable name="jumlah_1" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{jumlah}]]></variableExpression>
+	</variable>
+	<variable name="jumlah_2" class="java.lang.Integer" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{jumlah}]]></variableExpression>
+	</variable>
+	<group name="transaksi_id">
+		<groupExpression><![CDATA[$F{transaksi_id}]]></groupExpression>
+		<groupHeader>
+			<band height="76">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="20" width="74" height="13" forecolor="#333333" backcolor="#FFFFFF" uuid="9a608205-b795-46af-9bdf-b22326eeaf78"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[No Receipt :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="33" width="74" height="13" forecolor="#333333" backcolor="#FFFFFF" uuid="55f20bcd-919c-4bee-932e-a4b2b47ca0ec"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[Cashier :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="46" width="65" height="13" forecolor="#333333" backcolor="#FFFFFF" uuid="657614ac-378c-4c34-9589-9f55a17834b6"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[Order Name :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="7" width="42" height="13" forecolor="#333333" backcolor="#FFFFFF" uuid="02ea66ce-8616-4699-b39f-1dd8a4be0e32"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[Date :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="63" width="230" height="12" forecolor="#333333" backcolor="#FFFFFF" uuid="35293cd5-bd38-4fc5-b1c2-61b2487b78e7"/>
+					<textElement>
+						<font size="9" isBold="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[=============================================]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="42" y="33" width="188" height="13" forecolor="#333333" uuid="f10d1143-8f0f-4ab2-9c9b-8abd45066dd7"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{kasir_nama}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="55" y="20" width="175" height="13" forecolor="#333333" uuid="0f121b0a-a832-4ba4-b78d-3e4cf8c25548"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{transaksi_id}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="28" y="7" width="202" height="13" forecolor="#333333" uuid="1c2b1409-417c-4745-aad5-e12c72015a8d"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{waktu}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="61" y="46" width="169" height="13" forecolor="#333333" uuid="bfbb4693-e44f-4a80-92cf-6092d3040794"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{AN}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="137">
+			<staticText>
+				<reportElement x="0" y="70" width="230" height="44" forecolor="#333333" uuid="0cf951f0-00d0-4216-bba4-210e648fcb0d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB Demi" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DeFoods]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="108" width="230" height="16" forecolor="#333333" uuid="8aca5359-8e01-4cc1-9e65-252fccf9f938"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Modern Restourant]]></text>
+			</staticText>
+			<image>
+				<reportElement x="78" y="0" width="77" height="70" uuid="75d725ea-5ec4-44e6-8543-b80d6bad7e0c"/>
+				<imageExpression><![CDATA["D:\\document\\NetBeansProjects\\Restoran_v3\\src\\org\\deadlock\\restoran\\icons\\resta-black.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="29" y="0" width="126" height="13" forecolor="#333333" uuid="15bdc488-5aee-48d5-85e9-442cf5e50870"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produk_nama}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="7" y="0" width="22" height="13" forecolor="#333333" uuid="0e10490b-713f-4d7f-836f-b7ffc94fffb7"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jumlah}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="155" y="0" width="67" height="13" forecolor="#333333" uuid="00598006-183b-4b58-9605-739dcfa3efa1"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{harga}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="87">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="71" width="230" height="15" forecolor="#333333" uuid="525d56b2-4a37-4601-b7f5-cf3e93c5c599"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[For Your Visit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="58" width="230" height="13" forecolor="#333333" uuid="03560904-3f31-48fd-ade9-69ccb37aa9a7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Thanks]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="0" y="0" width="230" height="1" forecolor="#666666" uuid="833c02b2-a97a-49cb-8a29-7b8a14846a46"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed" lineColor="#333333"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="7" y="3" width="58" height="13" forecolor="#333333" backcolor="#FFFFFF" uuid="45569dc5-5d5d-4bc3-88bc-5ad3400532b7"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ITEMS :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="7" y="16" width="58" height="13" forecolor="#333333" backcolor="#FFFFFF" uuid="345c3664-78e6-47ab-861a-d3f6219f979d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CASH  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="7" y="29" width="58" height="13" forecolor="#333333" backcolor="#FFFFFF" uuid="612e89e0-8123-4957-97dd-ddefb7b5b013"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Change ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="43" width="230" height="12" forecolor="#333333" backcolor="#FFFFFF" uuid="f4d7dccf-5ac0-4aa9-8897-c4afc724c825"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[=============================================]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="3" width="68" height="13" forecolor="#333333" uuid="a275cb04-a785-4d1a-8c36-c5b3a5a7fbbd"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{jumlah_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="3" width="88" height="13" forecolor="#333333" uuid="597b0c9a-55b5-4817-945f-1ce9d5cde747"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transaksi_bayar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="16" width="88" height="13" forecolor="#333333" uuid="51c6a5a0-4482-46f3-91cd-a36d0ad3576e"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transaksi_cash}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="29" width="88" height="13" forecolor="#333333" uuid="9968e2d3-c8bc-446f-9088-4b1a767b82c5"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transaksi_kembali}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
