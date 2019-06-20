@@ -1,4 +1,4 @@
-#Restaurant with Netbeans
+# Restaurant with Netbeans
 This is a simple project of Desktop App with modern GUI Design and also use java language.
 
 To use this project, first make a new folder inside project named lib, and then you must download some files :
